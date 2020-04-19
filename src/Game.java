@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Game {
 
@@ -10,16 +11,33 @@ public class Game {
 		Deck d = new Deck();
 		
 		System.out.printf("%nWelcome to BlackJack!%n%n");
-			System.out.printf("How many players?%n");
+			System.out.printf("How many AI players?%n");
 			int numPlayers = input.nextInt();
 			ArrayList <GenericPlayer> players = new ArrayList<>(numPlayers + 1);
 		
 			// Add each player to the ArrayList
+			System.out.printf ("Enter player name: ");
+			String namea = input.next();
+			Player pa = new Player(namea);
+			players.add(pa);
 			for (int i=0;i< numPlayers;i++) {
-				System.out.printf ("Enter player #%d name: ", i + 1);
-				String name = input.next();
-				Player p = new Player(name);
-				players.add(p);
+				String[] a = {"Paul", "Nolan", "Eric", "Suman", "Todd", "John", "Jim", "Kevin"};
+				Random r = new Random();
+				int b = r.nextInt(8);
+				int c = r.nextInt(3);
+				String name = a[b];
+				if(c == 0) {
+					Easy_AI p = new Easy_AI(name);
+					players.add(p);
+				}	
+				if(c == 1) {
+					Medium_AI p = new Medium_AI(name);
+					players.add(p);
+				}	
+				if(c == 2) {
+					Hard_AI p = new Hard_AI(name);
+					players.add(p);
+				}	
 			}
 			House h = new House();
 			players.add(h);
@@ -30,6 +48,15 @@ public class Game {
 				for(int i = 0; i < numPlayers; i++) {
 					GenericPlayer p = players.get(i);
 					if(p instanceof House) {
+						break;
+					}
+					if(p instanceof Hard_AI) {
+						break;
+					}
+					if(p instanceof Medium_AI) {
+						break;
+					}
+					if(p instanceof Easy_AI) {
 						break;
 					}
 					System.out.printf("Stack size: %s%n%s enter your bet: ", p.stackToString(), p.name);
@@ -67,7 +94,7 @@ public class Game {
 			for (int i=0;i< players.size();i++) {
 				GenericPlayer p = players.get(i);
 				if(p instanceof House) {
-					House house =( House ) p;
+					House house =(House) p;
 					house.flipFirstCard();
 				}
 				
@@ -89,7 +116,13 @@ public class Game {
 								}
 							}
 						}
-						System.out.printf ("%s", p);
+						if(p.getHandValue() > 21) {
+							p.busted();
+							continue;
+						}
+						else {
+							System.out.printf ("%s", p);
+						}
 					} 
 					else {
 						continue;
@@ -151,7 +184,16 @@ public class Game {
 			for (int i=0;i< players.size();i++) {
 				GenericPlayer p = players.get(i);
 				if(p instanceof House) {
-				continue;
+					continue;
+				}
+				if(p instanceof Hard_AI) {
+					continue;
+				}
+				if(p instanceof Medium_AI) {
+					continue;
+				}
+				if(p instanceof Easy_AI) {
+					continue;
 				}
 				// win condition checks
 				if(p.hasBlackJack && h.hasBlackJack() == false) {

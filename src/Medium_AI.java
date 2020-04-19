@@ -9,20 +9,33 @@ public class Medium_AI extends Player {
 
 	@Override
 	public boolean isHitting(Scanner s) {
-		// TODO Auto-generated method stub
-		return false;
+		if(getHandValue() < 16 && isBusted==false) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isSpliting(Scanner s) {
-		// TODO Auto-generated method stub
+		for(int i = 0; i < 2; i++) {
+			Card c = findCard(i);
+			if(c.getValue() == 8 || c.getValue() == 11) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isDoublingDown(Scanner s) {
-		// TODO Auto-generated method stub
-		return false;
+		if(getHandValue() == 11) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }

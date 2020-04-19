@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Easy_AI extends Player {
@@ -9,20 +10,38 @@ public class Easy_AI extends Player {
 
 	@Override
 	public boolean isHitting(Scanner s) {
-		// TODO Auto-generated method stub
-		return false;
+		Random r = new Random();
+		int a = r.nextInt(2) + 1;
+		if(a == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isSpliting(Scanner s) {
-		// TODO Auto-generated method stub
-		return false;
+		Random r = new Random();
+		int a = r.nextInt(2) + 1;
+		if(a == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean isDoublingDown(Scanner s) {
-		// TODO Auto-generated method stub
-		return false;
+		Random r = new Random();
+		int a = r.nextInt(2) + 1;
+		if(a == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }
