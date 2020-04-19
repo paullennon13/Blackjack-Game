@@ -97,5 +97,9 @@ public class Player extends GenericPlayer {
 				}
 			} while (true);
 		}
+		
+		public Hand getHand() {
+			return h;
+		}
 	
 }

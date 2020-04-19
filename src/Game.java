@@ -87,6 +87,17 @@ public class Game {
 				House house = (House) p;
 				house.flipFirstCard();
 				}
+				if(p.getHandValue() > 21) {
+					for(i = 0; i < p.getSize()-1; i++) {
+						Card c = p.findCard(i);
+						if(c.isAce()) {
+							c.changeAce();
+						}
+						if(p.getHandValue() < 21) {
+							continue;
+						}
+					}
+				}
 				System.out.printf("%s%n", p);
 			}
 		
@@ -102,11 +113,14 @@ public class Game {
 					Player player = (Player)p;
 					if(player.isSplitable) {
 						if(player.isSpliting(input)) {
-						
+							((Player) p).getHand().addCard(p.findCard(1));
+							p.removeCard(p.findCard(1));
+							d.draw(p);
+							d.draw(((Player) p).getHand());
 						}
 					}
 				
-					if(p.isDoublingDown(input)) {
+					/** if(p.isDoublingDown(input)) {
 						d.draw(p);
 						if(p.getHandValue() > 21) {
 							for(i = 0; i < p.getSize()-1; i++) {
@@ -132,7 +146,7 @@ public class Game {
 					if(p.getHandValue() >21) {
 						p.busted();
 					
-					}
+					}**/
 				}
 				
 				while (!p.isBusted() && p.doubledDown == false) {
